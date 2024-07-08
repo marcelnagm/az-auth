@@ -1,0 +1,264 @@
+{
+    "name": "SysUser",
+    "plural": "users",
+    "base": "User",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true,
+        "mysql": {
+            "table": "users"
+        }
+    },
+    "mixins": {
+        "SoftDelete": true,
+        "TimeStamp": {
+            "createdAt": "createdAt",
+            "updatedAt": "updatedAt",
+            "required": false,
+            "validateUpsert": true,
+            "silenceWarnings": false
+        }
+    },
+    "excludeBaseProperties": ["isAdmin", "realm", "emailVerified"],
+    "properties": {
+        "isAdmin": {
+            "type": "boolean",
+            "default": false
+        },
+        "email": {
+            "type": "string",
+            "required": false
+        },
+        "cpf": {
+            "type": "string"
+        },
+        "username": {
+            "type": "string",
+            "required": true,
+            "index": { "unique": true }
+        },
+        "externalId": {
+            "type": "string"
+        }
+    },
+    "validations": [],
+    "relations": {
+        "userTypes": {
+            "type": "hasAndBelongsToMany",
+            "model": "UserType",
+            "throughTable": "user_types_users"
+        },
+        "accessTokens": {
+            "type": "hasMany",
+            "model": "SchoolAccessToken",
+            "foreignKey": "userId",
+            "options": {
+                "disableInclude": true
+            }
+        },
+        "profile": {
+            "type": "hasOne",
+            "model": "Profile",
+            "foreignKey": "userId"
+        },
+        "schoolOwners": {
+            "type": "hasMany",
+            "model": "SchoolOwner",
+            "foreignKey": "userId"
+        },
+        "schoolStaffs": {
+            "type": "hasMany",
+            "model": "SchoolStaff",
+            "foreignKey": "userId"
+        },
+        "schoolStudents": {
+            "type": "hasMany",
+            "model": "SchoolStudent",
+            "foreignKey": "userId"
+        },
+        "schoolTeachers": {
+            "type": "hasMany",
+            "model": "SchoolTeacher",
+            "foreignKey": "userId"
+        },
+        "schoolStudentResponsibles": {
+            "type": "hasMany",
+            "model": "SchoolStudentResponsible",
+            "foreignKey": "userId"
+        }
+    },
+    "acls": [
+        {
+            "accessType": "*",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "DENY"
+        },
+        {
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "DENY",
+            "property": "create"
+        },
+        {
+            "principalType": "ROLE",
+            "principalId": "SUPERUSER",
+            "permission": "ALLOW",
+            "property": "create"
+        },
+        {
+            "principalType": "ROLE",
+            "principalId": "STAFF",
+            "permission": "ALLOW",
+            "property": "create"
+        },
+        {
+            "accessType": "EXECUTE",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "ALLOW",
+            "property": "login"
+        },
+        {
+            "accessType": "EXECUTE",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "ALLOW",
+            "property": "logout"
+        },
+        {
+            "accessType": "EXECUTE",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "ALLOW",
+            "property": "me"
+        },
+        {
+            "accessType": "*",
+            "principalType": "ROLE",
+            "principalId": "SUPERUSER",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "EXECUTE",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "ALLOW",
+            "property": "resetPassword"
+        },
+        {
+            "accessType": "EXECUTE",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "ALLOW",
+            "property": "reset"
+        },
+        {
+            "accessType": "*",
+            "principalType": "ROLE",
+            "principalId": "$owner",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "EXECUTE",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "ALLOW",
+            "property": "generateSSOToken"
+        }
+    ],
+    "methods": {
+        "me": {
+            "accepts": [
+                {
+                    "arg": "access_token",
+                    "type": "string",
+                    "required": true,
+                    "http": {
+                        "source": "query"
+                    }
+                }
+            ],
+            "returns": {
+                "arg": "me",
+                "type": "object",
+                "root": true
+            },
+            "http": {
+                "path": "/me",
+                "verb": "get"
+            }
+        },
+        "generateSSOToken": {
+            "accepts": [
+                {
+                    "arg": "userId",
+                    "type": "number",
+                    "required": true,
+                    "http": {
+                        "source": "query"
+                    }
+                },
+                {
+                    "arg": "brandId",
+                    "type": "number",
+                    "required": true,
+                    "http": {
+                        "source": "query"
+                    }
+                },
+                {
+                    "arg": "lexUserId",
+                    "type": "string",
+                    "required": true,
+                    "http": {
+                        "source": "query"
+                    }
+                },
+                {
+                    "arg": "req",
+                    "type": "object",
+                    "http": {
+                        "source": "req"
+                    }
+                }
+            ],
+            "returns": {
+                "arg": "generateSSOToken",
+                "type": "object",
+                "root": true
+            },
+            "http": {
+                "path": "/generateSSOToken",
+                "verb": "get"
+            }
+        },
+        "customSearch": {
+            "accepts": [
+                {
+                    "arg": "filter",
+                    "required": false,
+                    "type": "object",
+                    "http": {
+                        "source": "query"
+                    }
+                },
+                {
+                    "arg": "res",
+                    "type": "object",
+                    "http": {
+                        "source": "res"
+                    }
+                }
+            ],
+            "returns": {
+                "type": "object",
+                "root": true
+            },
+            "http": {
+                "path": "/Search",
+                "verb": "get"
+            }
+        }
+    }
+}

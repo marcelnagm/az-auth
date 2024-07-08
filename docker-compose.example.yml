@@ -1,0 +1,36 @@
+version: "3.4"
+services:
+  app:
+    build:
+      context: .
+      target: NODE_DEV
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - MYSQL_URL=mysql://root:root@db:3306/auth_db
+      - NODE_ENV=development
+    links:
+      - db
+      
+  test:
+    build:
+      context: .
+      target: NODE_DEV
+    command: npm test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=test
+
+  db:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=auth_db
+    ports:
+      - 3307:3306

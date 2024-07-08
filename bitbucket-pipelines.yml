@@ -1,0 +1,190 @@
+options:
+  docker: true
+clone:
+  depth: full
+
+pipelines:
+  branches:
+    "{aux}":
+      - step:
+          name: "[AUX - Build]"
+          image: atlassian/pipelines-awscli:latest
+          script:
+            - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+            
+            # export global envs
+            - export AWS_ACCESS_KEY_ID=$GLOBAL_LEARNING_AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$GLOBAL_LEARNING_AWS_SECRET_ACCESS_KEY
+            - export AWS_DEFAULT_REGION=$GLOBAL_LEARNING_AWS_DEFAULT_REGION
+
+            # Docker Build
+            - docker build -t $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -f $DOCKERFILE_PATH .
+
+            # Push Image to AWS ECR
+            - docker push $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER
+
+      - step:
+          name: "[AUX - Deploy]"
+          image: conexia/bitbucket-pipeline:latest
+          trigger: manual
+          script:
+            # Export Kops Settings
+            - export CLUSTER_NAME=$AUX_CLUSTER_NAME
+            - export SERVICE_NAME=$AUX_SERVICE_NAME
+            - export KUBERNETES_APP_NAMESPACE=$AUX_KUBERNETES_APP_NAMESPACE
+
+            # Configure Kops Settings
+            - export KOPS_STATE_STORE=$AUX_KOPS_STATE_STORE
+            - kops export kubecfg $CLUSTER_NAME
+
+            # Update Kubernetes Deployment Image
+            - kubectl set image deployment/$SERVICE_NAME $SERVICE_NAME=$GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -n $KUBERNETES_APP_NAMESPACE
+
+    "{develop}":
+      - step:
+          name: "[DEV - Build]"
+          image: atlassian/pipelines-awscli:latest
+          script:
+            - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+            
+            # export global envs
+            - export AWS_ACCESS_KEY_ID=$GLOBAL_LEARNING_AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$GLOBAL_LEARNING_AWS_SECRET_ACCESS_KEY
+            - export AWS_DEFAULT_REGION=$GLOBAL_LEARNING_AWS_DEFAULT_REGION
+
+            # Docker Build
+            - docker build -t $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -f $DOCKERFILE_PATH .
+
+            # Push Image to AWS ECR
+            - docker push $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER
+
+      - step:
+          name: "[DEV - Deploy]"
+          image: conexia/bitbucket-pipeline:latest
+          trigger: manual
+          script:
+            # Export Kops Settings
+            - export CLUSTER_NAME=$DEV_CLUSTER_NAME
+            - export SERVICE_NAME=$DEV_SERVICE_NAME
+            - export KUBERNETES_APP_NAMESPACE=$DEV_KUBERNETES_APP_NAMESPACE
+
+            # Configure Kops Settings
+            - export KOPS_STATE_STORE=$DEV_KOPS_STATE_STORE
+            - kops export kubecfg $CLUSTER_NAME
+
+            # Update Kubernetes Deployment Image
+            - kubectl set image deployment/$SERVICE_NAME $SERVICE_NAME=$GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -n $KUBERNETES_APP_NAMESPACE
+
+    "{qa}":
+      - step:
+          name: "[QA - Build]"
+          image: atlassian/pipelines-awscli:latest
+          script:
+            - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+            
+            # export global envs
+            - export AWS_ACCESS_KEY_ID=$GLOBAL_LEARNING_AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$GLOBAL_LEARNING_AWS_SECRET_ACCESS_KEY
+            - export AWS_DEFAULT_REGION=$GLOBAL_LEARNING_AWS_DEFAULT_REGION
+
+            # Docker Build
+            - docker build -t $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -f $DOCKERFILE_PATH .
+
+            # Push Image to AWS ECR
+            - docker push $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER
+
+      - step:
+          name: "[QA - Deploy]"
+          image: conexia/bitbucket-pipeline:latest
+          trigger: manual
+          script:
+            # Export Kops Settings
+            - export CLUSTER_NAME=$QA_CLUSTER_NAME
+            - export SERVICE_NAME=$QA_SERVICE_NAME
+            - export KUBERNETES_APP_NAMESPACE=$QA_KUBERNETES_APP_NAMESPACE
+
+            # Configure Kops Settings
+            - export KOPS_STATE_STORE=$QA_KOPS_STATE_STORE
+            - kops export kubecfg $CLUSTER_NAME
+
+            # Update Kubernetes Deployment Image
+            - kubectl set image deployment/$SERVICE_NAME $SERVICE_NAME=$GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -n $KUBERNETES_APP_NAMESPACE
+
+    "{homolog}":
+      - step:
+          name: "[HML - Build]"
+          image: atlassian/pipelines-awscli:latest
+          script:
+            - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+            
+            # export global envs
+            - export AWS_ACCESS_KEY_ID=$GLOBAL_LEARNING_AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$GLOBAL_LEARNING_AWS_SECRET_ACCESS_KEY
+            - export AWS_DEFAULT_REGION=$GLOBAL_LEARNING_AWS_DEFAULT_REGION
+
+            # Docker Build
+            - docker build -t $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -f $DOCKERFILE_PATH .
+
+            # Push Image to AWS ECR
+            - docker push $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER
+
+      - step:
+          name: "[HML - Deploy]"
+          image: conexia/bitbucket-pipeline:latest
+          trigger: manual
+          script:
+            # Export Kops Settings
+            - export CLUSTER_NAME=$HML_CLUSTER_NAME
+            - export SERVICE_NAME=$HML_SERVICE_NAME
+            - export KUBERNETES_APP_NAMESPACE=$HML_KUBERNETES_APP_NAMESPACE
+
+            # Configure Kops Settings
+            - export KOPS_STATE_STORE=$HML_KOPS_STATE_STORE
+            - kops export kubecfg $CLUSTER_NAME
+
+            # Update Kubernetes Deployment Image
+            - kubectl set image deployment/$SERVICE_NAME $SERVICE_NAME=$GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -n $KUBERNETES_APP_NAMESPACE
+
+    "{master}":
+      - step:
+          name: "[PRD - Build]"
+          image: atlassian/pipelines-awscli:latest
+          script:
+            - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+            
+            # export global envs
+            - export AWS_ACCESS_KEY_ID=$GLOBAL_LEARNING_AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$GLOBAL_LEARNING_AWS_SECRET_ACCESS_KEY
+            - export AWS_DEFAULT_REGION=$GLOBAL_LEARNING_AWS_DEFAULT_REGION
+
+            # Docker Build
+            - docker build -t $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -f $DOCKERFILE_PATH .
+
+            # Push Image to AWS ECR
+            - docker push $GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER
+
+      - step:
+          name: "[PRD - Deploy]"
+          image: conexia/bitbucket-pipeline:latest
+          trigger: manual
+          script:
+            # Export Kops Settings
+            - export CLUSTER_NAME=$PRD_CLUSTER_NAME
+            - export SERVICE_NAME=$PRD_SERVICE_NAME
+            - export KUBERNETES_APP_NAMESPACE=$PRD_KUBERNETES_APP_NAMESPACE
+
+            # Configure Kops Settings
+            - export KOPS_STATE_STORE=$PRD_KOPS_STATE_STORE
+            - kops export kubecfg $CLUSTER_NAME
+
+            # Update Kubernetes Deployment Image
+            - kubectl set image deployment/$SERVICE_NAME $SERVICE_NAME=$GLOBAL_LEARNING_ECR_PATH$REPO_ECR_NAME:$BITBUCKET_BUILD_NUMBER -n $KUBERNETES_APP_NAMESPACE
+            - pipe: atlassian/slack-notify:0.3.6
+              variables:
+                WEBHOOK_URL: $WEBHOOK_URL
+                MESSAGE: "Deploy in Production.\n$BITBUCKET_REPO_SLUG ($BITBUCKET_PROJECT_KEY) on branch $BITBUCKET_BRANCH"
+
+definitions:
+  services:
+    docker:
+      memory: 3072 # Increase the memory for the Docker service from 1GB to 3GB

@@ -1,0 +1,169 @@
+{
+    "name": "SchoolStudent",
+    "plural": "schoolStudents",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true,
+        "mysql": {
+            "table": "school_students"
+        }
+    },
+    "mixins": {
+        "SoftDelete": true,
+        "TimeStamp": {
+            "createdAt": "createdAt",
+            "updatedAt": "updatedAt",
+            "required": false,
+            "validateUpsert": true,
+            "silenceWarnings": false
+        }
+    },
+    "properties": {
+        "schoolId": {
+            "type": "number",
+            "required": true
+        },
+        "userId": {
+            "type": "number",
+            "required": true
+        }
+    },
+    "scope": {
+        "order": "id DESC"
+    },
+    "validations": [],
+    "relations": {
+        "user": {
+            "type": "belongsTo",
+            "model": "SysUser",
+            "foreignKey": "userId"
+        },
+        "school": {
+            "type": "belongsTo",
+            "model": "School",
+            "foreignKey": "schoolId"
+        },
+        "schoolAccessTokens": {
+            "type": "hasMany",
+            "model": "SchoolAccessToken",
+            "foreignKey": "schoolStudentId"
+        },
+        "schoolStudentResponsibles": {
+            "type": "hasMany",
+            "model": "schoolStudentResponsibles",
+            "foreignKey": "schoolStudentId"
+        }
+    },
+    "acls": [
+        {
+            "accessType": "*",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "DENY"
+        },
+        {
+            "accessType": "EXECUTE",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "ALLOW",
+            "property": "loginByToken"
+        },
+        {
+            "accessType": "*",
+            "principalType": "ROLE",
+            "principalId": "SUPERUSER",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "*",
+            "principalType": "ROLE",
+            "principalId": "STAFF",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "READ",
+            "principalType": "ROLE",
+            "principalId": "STUDENT",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "READ",
+            "principalType": "ROLE",
+            "principalId": "RESPONSIBLE",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "READ",
+            "principalType": "ROLE",
+            "principalId": "PUBLIC",
+            "permission": "ALLOW"
+        }
+    ],
+    "methods": {
+        "loginByToken": {
+            "accepts": [
+                { "arg": "schoolId", "type": "number" },
+                { "arg": "userId", "type": "number" },
+                { "arg": "clientId", "type": "string" },
+                { "arg": "req", "type": "object", "http": { "source": "req" } }
+            ],
+            "returns": { "type": "object", "root": true },
+            "http": { "path": "/login", "verb": "post" }
+        },
+        "customSearch": {
+            "accepts": [
+                {
+                    "arg": "filter",
+                    "required": false,
+                    "type": "object",
+                    "http": {
+                        "source": "query"
+                    }
+                },
+                {
+                    "arg": "res",
+                    "type": "object",
+                    "http": {
+                        "source": "res"
+                    }
+                }
+            ],
+            "returns": {
+                "type": "object",
+                "root": true
+            },
+            "http": {
+                "path": "/Search",
+                "verb": "get"
+            }
+        },
+        "customSearchWithRegistrations": {
+            "accepts": [
+                {
+                    "arg": "filter",
+                    "required": false,
+                    "type": "object",
+                    "http": {
+                        "source": "query"
+                    }
+                },
+                {
+                    "arg": "res",
+                    "type": "object",
+                    "http": {
+                        "source": "res"
+                    }
+                }
+            ],
+            "returns": {
+                "type": "object",
+                "root": true
+            },
+            "http": {
+                "path": "/searchRegistrations",
+                "verb": "get"
+            }
+        }
+    }
+}

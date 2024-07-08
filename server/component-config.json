@@ -1,0 +1,25 @@
+{
+  "loopback-component-explorer": {
+    "mountPath": "/explorer",
+    "generateOperationScopedModels": true
+  },
+  "loopback3-xtotalcount": {
+    "pattern": [
+      "*.find"
+    ]
+  },
+  "loopback-component-migrate": {
+    "dataSource": "db"
+  },
+  "./lib/static-roles": {
+    "roles": [
+      "SUPERUSER",
+      "STAFF",
+      "STUDENT",
+      "RESPONSIBLE",
+      "TEACHER",
+      "PUBLIC"
+    ],
+    "tokenAttName": "userType"
+  }
+}

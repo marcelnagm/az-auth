@@ -1,0 +1,1304 @@
+[
+  {
+    "method": "GET",
+    "model": "User",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "User",
+    "auth": {
+      "enableAuthentication": true
+    },
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "User",
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    },
+    "expect": 200
+  },
+  {
+    "method": "POST",
+    "model": "User",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "User",
+    "auth": {
+      "enableAuthentication": true
+    },
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "User",
+    "withData": {
+      "username": "usertest",
+      "password": "q1w2e3r4"
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    },
+    "expect": 200
+  },
+  {
+    "method": "POST",
+    "model": "User",
+    "withData": {
+      "username": "usertest2",
+      "password": "q1w2e3r4"
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    },
+    "expect": 200
+  },
+  {
+    "method": "POST",
+    "model": "User",
+    "expect": 200,
+    "withData": {
+      "username": "usertest",
+      "password": "q1w2e3r4"
+    },
+    "remoteMethod": "/login"
+  },
+  {
+    "method": "GET",
+    "model": "App",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "App",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "App",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "App",
+    "expect": 200,
+    "withData": {},
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "AppEvent",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "AppEvent",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "AppEvent",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "AppEvent",
+    "expect": 200,
+    "withData": {
+      "eventId": 0
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "AppSchool",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "AppSchool",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "AppSchool",
+    "withData": {
+      "schoolId": 0
+    },
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "AppSchool",
+    "withData": {
+      "schoolId": 0
+    },
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "AppVersion",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "AppVersion",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "AppVersion",
+    "withData": {
+      "name": "test",
+      "branch": "test"
+    },
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "AppVersion",
+    "withData": {
+      "name": "test",
+      "branch": "test"
+    },
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "AppVersionEnv",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "AppVersionEnv",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "AppVersionEnv",
+    "expect": 401,
+    "withData": {
+      "envName": "test",
+      "envValue": "test"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "AppVersionEnv",
+    "expect": 200,
+    "withData": {
+      "envName": "test",
+      "envValue": "test"
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Cluster",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "Cluster",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Cluster",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Cluster",
+    "expect": 200,
+    "withData": {
+      "name": "test cluster",
+      "endpoint": "test",
+      "registryEndpoint": "test",
+      "k8sCluster": "k8sCluster test"
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Cluster",
+    "expect": 401,
+    "withData": {
+      "name": "test cluster",
+      "endpoint": "test",
+      "registryEndpoint": "test",
+      "k8sCluster": "k8sCluster test"
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "ClusterEnv",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "ClusterEnv",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "ClusterEnv",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "ClusterEnv",
+    "expect": 401,
+    "withData": {
+      "envName": "test",
+      "envValue": "test",
+      "clusterId": 1
+    }
+  },
+  {
+    "method": "POST",
+    "model": "ClusterEnv",
+    "expect": 401,
+    "withData": {
+      "envName": "test",
+      "envValue": "test",
+      "clusterId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "ClusterEnv",
+    "expect": 200,
+    "withData": {
+      "envName": "test",
+      "envValue": "test",
+      "clusterId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Endpoint",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "Endpoint",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Endpoint",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Endpoint",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "Endpoint",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Endpoint",
+    "expect": 200,
+    "withData": {
+      "description": "test",
+      "method": "test",
+      "path": "test",
+      "appVersionId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Interface",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "Interface",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Interface",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Interface",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "Interface",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Interface",
+    "expect": 200,
+    "withData": {
+      "location": "test",
+      "action": "test",
+      "content": "test"
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Package",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "Package",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Package",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Package",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "Package",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Package",
+    "expect": 200,
+    "withData": {
+      "name": "test"
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Policy",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "Policy",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Policy",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Policy",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "Policy",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Policy",
+    "expect": 200,
+    "withData": {
+      "schoolId": 0,
+      "isPublic": false,
+      "endpointId": 1,
+      "appSchoolId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "PolicySchoolRole",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "PolicySchoolRole",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "PolicySchoolRole",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "PolicySchoolRole",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "PolicySchoolRole",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "PolicySchoolRole",
+    "expect": 200,
+    "withData": {
+      "schoolRoleId": 1,
+      "policyId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "PolicyUserType",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "PolicyUserType",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "PolicyUserType",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "PolicyUserType",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "PolicyUserType",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "PolicyUserType",
+    "expect": 200,
+    "withData": {
+      "userTypeId": 1,
+      "policyId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Profile",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "Profile",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "Profile",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Profile",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "Profile",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "Profile",
+    "expect": 200,
+    "withData": {
+      "firstName": "test",
+      "lastName": "ing",
+      "userId": 123
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "School",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "School",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "School",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "School",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "School",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "School",
+    "expect": 200,
+    "withData": {
+      "name": "test"
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "SchoolOwner",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "SchoolOwner",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "GET",
+    "model": "SchoolOwner",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolOwner",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "SchoolOwner",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolOwner",
+    "expect": 200,
+    "withData": {
+      "schoolId": 1,
+      "userId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "SchoolResponsible",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "SchoolResponsible",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STUDENT"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "SchoolResponsible",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolResponsible",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "SchoolResponsible",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolResponsible",
+    "expect": 200,
+    "withData": {
+      "userId": 1,
+      "alias": "test",
+      "active": true,
+      "schoolId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "SchoolRole",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "SchoolRole",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolRole",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "SchoolRole",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolRole",
+    "expect": 200,
+    "withData": {
+      "name": "test",
+      "schoolId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "SchoolStaff",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "SchoolStaff",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolStaff",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "SchoolStaff",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "RESPONSIBLE"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolStaff",
+    "expect": 200,
+    "withData": {
+      "schoolId": 1,
+      "userId": 1,
+      "schoolRoleId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolStaff",
+    "expect": 200,
+    "withData": {
+      "schoolId": 1,
+      "userId": 1,
+      "schoolRoleId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "SchoolStudent",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "SchoolStudent",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolStudent",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "SchoolStudent",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "SchoolStudent",
+    "expect": 200,
+    "withData": {
+      "schoolId": 1,
+      "userId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistration",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistration",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistration",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistration",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistration",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistration",
+    "expect": 200,
+    "withData": {
+      "schoolYearId": 1,
+      "schoolStaffId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistration",
+    "expect": 200,
+    "withData": {
+      "schoolYearId": 1,
+      "schoolStaffId": 2
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationClassRoom",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationClassRoom",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationClassRoom",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationClassRoom",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationClassRoom",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationClassRoom",
+    "expect": 200,
+    "withData": {
+      "classRoomId": 1,
+      "staffRegistrationId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationClassRoom",
+    "expect": 200,
+    "withData": {
+      "classRoomId": 1,
+      "staffRegistrationId": 2
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationSchoolGrade",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationSchoolGrade",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationSchoolGrade",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationSchoolGrade",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationSchoolGrade",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationSchoolGrade",
+    "expect": 200,
+    "withData": {
+      "schoolGradeId": 1,
+      "staffRegistrationId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationSchoolGrade",
+    "expect": 200,
+    "withData": {
+      "schoolGradeId": 1,
+      "staffRegistrationId": 2
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationSchoolUnit",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationSchoolUnit",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationSchoolUnit",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationSchoolUnit",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationSchoolUnit",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationSchoolUnit",
+    "expect": 200,
+    "withData": {
+      "schoolUnitId": 1,
+      "staffRegistrationId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationSchoolUnit",
+    "expect": 200,
+    "withData": {
+      "schoolUnitId": 1,
+      "staffRegistrationId": 2
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationTheme",
+    "expect": 401
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationTheme",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "GET",
+    "model": "StaffRegistrationTheme",
+    "expect": 200,
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationTheme",
+    "expect": 401
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationTheme",
+    "expect": 401,
+    "auth": {
+      "enableAuthentication": true
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationTheme",
+    "expect": 200,
+    "withData": {
+      "themeId": 0,
+      "staffRegistrationId": 1
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "SUPERUSER"
+    }
+  },
+  {
+    "method": "POST",
+    "model": "StaffRegistrationTheme",
+    "expect": 200,
+    "withData": {
+      "themeId": 0,
+      "staffRegistrationId": 2
+    },
+    "auth": {
+      "enableAuthentication": true,
+      "role": "STAFF"
+    }
+  }
+]

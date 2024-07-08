@@ -1,0 +1,17 @@
+{
+  "final:after": {
+    "strong-error-handler": {
+      "params": {
+        "debug": true,
+        "log": true
+      }
+    }
+  },
+  "auth": {
+    "loopback#token": {
+      "params": {
+        "model": "SchoolAccessToken"
+      }
+    }
+  }
+}

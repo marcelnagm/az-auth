@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "ES2021"
+        ],
+        "module": "commonjs",
+        "target": "ES2021",
+        "baseUrl": "./",
+        // All paths must be in package.json imports
+        "paths": {
+            "#root/*": [
+                "./"
+            ],
+            "#server/*": [
+                "./server/*"
+            ],
+            "#database": [
+                "database-config.js"
+            ],
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*"
+    ]
+}

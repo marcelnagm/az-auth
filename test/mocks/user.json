@@ -1,0 +1,12 @@
+[
+    {
+        "cpf": "1234",
+        "username": "user@test.com",
+        "password": "P0o9i8u&"
+    },
+    {
+        "cpf": "12345",
+        "username": "user2@test.com",
+        "password": "P0o9i8u&"
+    }
+]

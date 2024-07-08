@@ -1,0 +1,158 @@
+{
+    "_meta": {
+        "sources": ["loopback/common/models", "loopback/server/models", "../common/models", "./models"],
+        "mixins": [
+            "loopback/common/mixins",
+            "loopback/server/mixins",
+            "../node_modules/loopback-ds-timestamp-mixin",
+            "../node_modules/loopback-softdelete-mixin4",
+            "../node_modules/loopback-ds-computed-mixin/lib",
+            "../common/mixins",
+            "./mixins"
+        ]
+    },
+    "AccessToken": {
+        "dataSource": "memory",
+        "public": false
+    },
+    "ACL": {
+        "dataSource": "memory",
+        "public": false
+    },
+    "Role": {
+        "dataSource": "memory",
+        "public": false
+    },
+    "UserType": {
+        "dataSource": "db",
+        "public": true
+    },
+    "SysUser": {
+        "dataSource": "db",
+        "public": true
+    },
+    "SchoolAccessToken": {
+        "dataSource": "db",
+        "public": true
+    },
+    "SchoolOwner": {
+        "dataSource": "db",
+        "public": true
+    },
+    "SchoolRole": {
+        "dataSource": "db",
+        "public": true
+    },
+    "Profile": {
+        "dataSource": "db",
+        "public": true
+    },
+    "SchoolStudent": {
+        "dataSource": "db",
+        "public": true
+    },
+    "SchoolStaff": {
+        "dataSource": "db",
+        "public": true
+    },
+    "User": {
+        "dataSource": false,
+        "public": false
+    },
+    "StaffRegistration": {
+        "dataSource": "db",
+        "public": true
+    },
+    "StaffRegistrationSchoolUnit": {
+        "dataSource": "db",
+        "public": true
+    },
+    "StaffRegistrationSchoolGrade": {
+        "dataSource": "db",
+        "public": true
+    },
+    "StaffRegistrationClassRoom": {
+        "dataSource": "db",
+        "public": true
+    },
+    "StaffRegistrationTheme": {
+        "dataSource": "db",
+        "public": true
+    },
+    "App": {
+        "dataSource": "db",
+        "public": true
+    },
+    "AppVersion": {
+        "dataSource": "db",
+        "public": true
+    },
+    "Endpoint": {
+        "dataSource": "db",
+        "public": true
+    },
+    "AppSchool": {
+        "dataSource": "db",
+        "public": true
+    },
+    "Package": {
+        "dataSource": "db",
+        "public": true
+    },
+    "Policy": {
+        "dataSource": "db",
+        "public": true
+    },
+    "PolicyUserType": {
+        "dataSource": "db",
+        "public": true
+    },
+    "PolicySchoolRole": {
+        "dataSource": "db",
+        "public": true
+    },
+    "AppEvent": {
+        "dataSource": "db",
+        "public": true
+    },
+    "Cluster": {
+        "dataSource": "db",
+        "public": true
+    },
+    "School": {
+        "dataSource": "db",
+        "public": true
+    },
+    "Interface": {
+        "dataSource": "db",
+        "public": true
+    },
+    "ClusterEnv": {
+        "dataSource": "db",
+        "public": true
+    },
+    "AppVersionEnv": {
+        "dataSource": "db",
+        "public": true
+    },
+    "Email": {
+        "dataSource": false,
+        "public": false
+    },
+    "Auth": {
+        "dataSource": false,
+        "public": true
+    },
+    "SchoolStudentResponsible": {
+        "dataSource": "db",
+        "public": true
+    },
+    "SchoolTeacher": {
+        "dataSource": "db",
+        "public": true
+    },
+    "Env": {
+        "dataSource": "db",
+        "public": true
+    }
+}
